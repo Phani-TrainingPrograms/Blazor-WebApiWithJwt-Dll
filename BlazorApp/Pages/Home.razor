@@ -1,0 +1,55 @@
+﻿@page "/"
+@using BlazorApp.Entities
+@using BlazorApp.Services
+@inject IEmpUIService service 
+
+<PageTitle>Home</PageTitle>
+
+<h1>List of Employees with Us</h1>
+<hr/>
+@if (Employees == null)
+{
+    <text>Loading....</text>
+}
+else if (Employees.Count == 0)
+{
+    <text>No Employee Records are found!!!</text>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <td>Employee Id</td>
+                <td>Employee Name</td>
+                <td>Employee Address</td>
+                <td>Employee Salary</td>
+                <td>Options</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var emp in Employees)
+            {
+                <tr>
+                    <td>@emp.EmpId</td>
+                    <td>@emp.EmpName</td>
+                    <td>@emp.EmpAddress</td>
+                    <td>@emp.EmpSalary</td>
+                    <td>
+                        <a class="btn btn-success" href="Details/@emp.EmpId">Edit</a>
+                        <a class="btn btn-danger">Delete</a>
+                    </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+}
+@code{
+    private List<EmployeeDto> Employees{get;set;}
+
+    protected async override Task OnInitializedAsync()
+    {
+        Employees = await service.GetAll();
+    }
+
+}

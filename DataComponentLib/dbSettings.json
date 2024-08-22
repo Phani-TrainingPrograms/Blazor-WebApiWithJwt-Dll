@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "myConnection" :  "Data Source=.\\SQLEXPRESS;Initial Catalog=SampleDatabase;Integrated Security=True;Trust Server Certificate=True"
+  }
+}
